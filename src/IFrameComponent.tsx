@@ -4,8 +4,7 @@ import { IFrameComponentContainerProps } from "../typings/IFrameComponentProps";
 
 import "./ui/IFrameComponent.scss";
 import classNames from "classnames";
-import Iframe from "react-iframe";
-import { IIframe } from "react-iframe/types";
+import IFrame from "@uiw/react-iframe";
 import { enumReferrer, enumSandbox, executeAction, getDynamicValue } from "./util";
 
 const DEFAULT_CLASSNAME = "mendix-iframe-component";
@@ -40,26 +39,22 @@ const IFrameComponent = ({
         return <div className={classNames(DEFAULT_CLASSNAME, name, "no-valid-source")} />;
     }
 
-    const iframeProps: IIframe = {
-        url,
-        className,
-        width,
-        height,
-        loading,
-        sandbox,
-        referrerpolicy,
-        allow,
-        styles,
-        onLoad: () => executeAction(onLoad),
-        onMouseOver: () => executeAction(onMouseOver),
-        onMouseOut: () => executeAction(onMouseOut)
-    };
-
-    if (src !== null) {
-        iframeProps.src = src;
-    }
-
-    return <Iframe {...iframeProps} />;
+    return (
+        <IFrame
+            src={src || url}
+            className={className}
+            width={width}
+            height={height}
+            loading={loading === "auto" ? "eager" : loading}
+            sandbox={sandbox}
+            referrerPolicy={referrerpolicy}
+            allow={allow}
+            style={styles}
+            onLoad={() => executeAction(onLoad)}
+            onMouseOver={() => executeAction(onMouseOver)}
+            onMouseOut={() => executeAction(onMouseOut)}
+        />
+    );
 };
 
 export default IFrameComponent;

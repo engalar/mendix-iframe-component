@@ -22,14 +22,25 @@
   },
   "license": "Apache-2.0",
   "devDependencies": {
-    "@mendix/pluggable-widgets-tools": "^8.14.0",
-    "@types/big.js": "^4.0.5",
-    "@types/classnames": "^2.2.4",
-    "@types/react": "~16.9.0",
-    "@types/react-dom": "~16.9.0"
+    "@mendix/pluggable-widgets-tools": "^10.18.0",
+    "@types/big.js": "^6.2.2",
+    "@types/classnames": "^2.3.4"
   },
   "dependencies": {
-    "classnames": "^2.2.6",
-    "react-iframe": "^1.8.0"
+    "@uiw/react-iframe": "^1.0.3",
+    "classnames": "^2.5.1",
+    "react-iframe": "^1.8.5"
+  },
+  "overrides": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "@types/react": "18.2.0",
+    "@types/react-dom": "18.2.0"
+  },
+  "resolutions": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "@types/react": "18.2.0",
+    "@types/react-dom": "18.2.0"
   }
 }
