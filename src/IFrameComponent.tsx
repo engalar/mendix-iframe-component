@@ -37,10 +37,13 @@ const IFrameComponent = ({
     const allow = getDynamicValue(undefined, miscAllowExpression);
     const referrerpolicy = enumReferrer(miscReferrerPolicy);
     const sandbox = enumSandbox(miscSandbox);
+    const valueAttributeRef = useRef(valueAttribute);
 
     const iframeRef = useRef<HTMLIFrameElement>(null);
     // const [receivedMessage, setReceivedMessage] = useState<any>(null);
-
+    useEffect(() => {
+        valueAttributeRef.current = valueAttribute;
+    }, [valueAttribute]);
     // 监听 iframe 发来的消息
     useEffect(() => {
         const handleMessage = (event: MessageEvent) => {
@@ -52,7 +55,7 @@ const IFrameComponent = ({
                     sendMessageToIframe({ type: "startGame" });
                     break;
                 case "scoreUpdate":
-                    setDynamicValue(valueAttribute, Big(event.data.score));
+                    setDynamicValue(valueAttributeRef.current, Big(event.data.score));
                     executeAction(onClickAction);
                     break;
                 default:
