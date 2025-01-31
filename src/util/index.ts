@@ -1,4 +1,4 @@
-import { DynamicValue, ValueStatus, ActionValue } from "mendix";
+import { DynamicValue, ValueStatus, ActionValue, EditableValue } from "mendix";
 import { MiscReferrerPolicyEnum, MiscSandboxEnum } from "../../typings/IFrameComponentProps";
 
 type ReferrerType =
@@ -70,6 +70,15 @@ export const getDynamicValue = <P, T>(alternative: P, dynamicValue?: DynamicValu
         return dynamicValue.value;
     }
     return alternative;
+};
+declare type GUID_2 = string & {
+    __guidTag: any;
+};
+declare type AttributeValue_2 = undefined | string | boolean | Date | Big | GUID_2 | GUID_2[];
+export const setDynamicValue = <T extends AttributeValue_2>(dynamicValue?: EditableValue<T>, value?: T): void => {
+    if (dynamicValue && dynamicValue.status === ValueStatus.Available) {
+        dynamicValue.setValue(value);
+    }
 };
 
 export const executeAction = (action?: ActionValue): void => {

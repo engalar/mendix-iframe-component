@@ -5,7 +5,8 @@ import { IFrameComponentContainerProps } from "../typings/IFrameComponentProps";
 import "./ui/IFrameComponent.scss";
 import classNames from "classnames";
 import IFrame from "@uiw/react-iframe";
-import { enumReferrer, enumSandbox, executeAction, getDynamicValue } from "./util";
+import { enumReferrer, enumSandbox, executeAction, getDynamicValue, setDynamicValue } from "./util";
+import Big from "big.js";
 
 const DEFAULT_CLASSNAME = "mendix-iframe-component";
 
@@ -23,6 +24,8 @@ const IFrameComponent = ({
     onMouseOut,
     class: className,
     style: styles,
+    valueAttribute,
+    onClickAction,
     name
 }: IFrameComponentContainerProps): ReactElement => {
     // const url = urlExpression.status === ValueStatus.Available ? urlExpression.value : "";
@@ -44,8 +47,17 @@ const IFrameComponent = ({
             if (event.source !== iframeRef.current?.contentWindow) {
                 return;
             }
-            //setReceivedMessage(event.data);
-            //onPostMessage?.(event.data);
+            switch (event.data.type) {
+                case "gameReady":
+                    sendMessageToIframe({ type: "startGame" });
+                    break;
+                case "scoreUpdate":
+                    setDynamicValue(valueAttribute, Big(event.data.score));
+                    executeAction(onClickAction);
+                    break;
+                default:
+                    break;
+            }
         };
 
         window.addEventListener("message", handleMessage);
@@ -56,11 +68,11 @@ const IFrameComponent = ({
     }, []);
 
     // 发送消息到 iframe
-    // const sendMessageToIframe = (message: any) => {
-    //     if (iframeRef.current?.contentWindow) {
-    //         iframeRef.current.contentWindow.postMessage(message, "*");
-    //     }
-    // };
+    const sendMessageToIframe = (message: any) => {
+        if (iframeRef.current?.contentWindow) {
+            iframeRef.current.contentWindow.postMessage(message, "*");
+        }
+    };
 
     // 如果 URL 或 src 无效，直接返回一个占位符
     if ((!url || url === null) && !src) {
