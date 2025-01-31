@@ -4,7 +4,8 @@
  * @author Mendix Widgets Framework Team
  */
 import { CSSProperties } from "react";
-import { ActionValue, DynamicValue } from "mendix";
+import { ActionValue, DynamicValue, EditableValue } from "mendix";
+import { Big } from "big.js";
 
 export type MiscLoadingEnum = "notSet" | "auto" | "eager" | "lazy";
 
@@ -28,6 +29,8 @@ export interface IFrameComponentContainerProps {
     onLoad?: ActionValue;
     onMouseOver?: ActionValue;
     onMouseOut?: ActionValue;
+    valueAttribute?: EditableValue<Big>;
+    onClickAction?: ActionValue;
 }
 
 export interface IFrameComponentPreviewProps {
@@ -52,4 +55,6 @@ export interface IFrameComponentPreviewProps {
     onLoad: {} | null;
     onMouseOver: {} | null;
     onMouseOut: {} | null;
+    valueAttribute: string;
+    onClickAction: {} | null;
 }

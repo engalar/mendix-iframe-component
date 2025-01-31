@@ -102,6 +102,19 @@ See iframe allow attribute on https://developer.mozilla.org/en-US/docs/Web/HTTP/
             </property>
 
         </propertyGroup>
+        <propertyGroup caption="Game">
+            <property key="valueAttribute" type="attribute" required="false">
+                <caption>Value attribute</caption>
+                <description>The attribute that contains the gamewidget value</description>
+                <attributeTypes>
+                    <attributeType name="Integer"/>
+                </attributeTypes>
+            </property>
+            <property key="onClickAction" type="action" required="false">
+                <caption>On click action</caption>
+                <description>Action to trigger when button / label is clicked</description>
+            </property>
+        </propertyGroup>
         <propertyGroup caption="Common">
             <systemProperty key="Name"/>
             <systemProperty key="Visibility"/>

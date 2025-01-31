@@ -1,4 +1,4 @@
-import { createElement, ReactElement, useEffect, useRef, useState } from "react";
+import { createElement, ReactElement, useEffect, useRef } from "react";
 
 import { IFrameComponentContainerProps } from "../typings/IFrameComponentProps";
 
@@ -36,7 +36,7 @@ const IFrameComponent = ({
     const sandbox = enumSandbox(miscSandbox);
 
     const iframeRef = useRef<HTMLIFrameElement>(null);
-    const [receivedMessage, setReceivedMessage] = useState<any>(null);
+    // const [receivedMessage, setReceivedMessage] = useState<any>(null);
 
     // 监听 iframe 发来的消息
     useEffect(() => {
@@ -44,7 +44,7 @@ const IFrameComponent = ({
             if (event.source !== iframeRef.current?.contentWindow) {
                 return;
             }
-            setReceivedMessage(event.data);
+            //setReceivedMessage(event.data);
             //onPostMessage?.(event.data);
         };
 
@@ -56,11 +56,11 @@ const IFrameComponent = ({
     }, []);
 
     // 发送消息到 iframe
-    const sendMessageToIframe = (message: any) => {
-        if (iframeRef.current?.contentWindow) {
-            iframeRef.current.contentWindow.postMessage(message, "*");
-        }
-    };
+    // const sendMessageToIframe = (message: any) => {
+    //     if (iframeRef.current?.contentWindow) {
+    //         iframeRef.current.contentWindow.postMessage(message, "*");
+    //     }
+    // };
 
     // 如果 URL 或 src 无效，直接返回一个占位符
     if ((!url || url === null) && !src) {
